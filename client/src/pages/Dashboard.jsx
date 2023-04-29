@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import Cookies from "universal-cookie";
+import Department from "../components/Department";
+import DepartmentHead from "../components/DeartmentHead";
+import Employee from "../components/Employee";
 const cookies = new Cookies();
 
 const token = cookies.get('TOKEN');
 
 const AuthComponent = () => {
-  const [message, setMessage] = useState('');
+
+  const [currentComponent,setCurrentComponent] = useState('')
 
   useEffect(() => {
 
@@ -21,8 +25,7 @@ const AuthComponent = () => {
     // make the API call
     axios(configuration)
       .then((result) => {
-
-        setMessage(result.data.message);
+        console.log('Welcome admin')
       })
       .catch((error) => {
         error = new Error();
@@ -35,6 +38,19 @@ const AuthComponent = () => {
 
     window.location.href = '/';
   }
+  const renderSelectedComponent = () => {
+    switch (currentComponent) {
+      case "Departments":
+        return <Department/>
+      case "DepartmentHeads":
+        return <DepartmentHead />;
+      case "Employees":
+        return <Employee />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <header>
@@ -47,18 +63,33 @@ const AuthComponent = () => {
           </div>
         </nav>
       </header>
-      <main>
+      <main className='flex gap-8'>
         <section className="w-44 h-[80vh] bg-slate-300 my-3">
           <div>
             <ul className="flex flex-col gap-3 font-bold ml-3">
-              <li><a href="/departments">Departments</a></li>
-              <li><a href="/deptheads">Department Heads</a></li>
-              <li><a href="/employees">Employees</a></li>
+            <li>
+              <button onClick={() => setCurrentComponent("Departments")}>
+                Departments
+              </button>
+            </li>
+            <li>
+              <button onClick={() => setCurrentComponent("DepartmentHeads")}>
+                Department Heads
+              </button>
+            </li>
+            <li>
+              <button onClick={() => setCurrentComponent("Employees")}>
+                Employees
+              </button>
+            </li>
             </ul>
           </div>
         </section>
-        <section>
-              {/* <RenderDB endpoint={'/departments'}/> */}
+        <section className="w-[80vw]">
+            {renderSelectedComponent()}
+              {/* <Department/>
+              <DepartmentHead/>
+              <Employee/> */}
         </section>
       </main>
       <footer>

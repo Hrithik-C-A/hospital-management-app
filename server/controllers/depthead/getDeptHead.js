@@ -2,16 +2,16 @@ const DeptHead = require('../../models/DeptHead')
 
 module.exports =  (req,res)=>{
     DeptHead.find({})
-    .then((depthead)=>{
+    .then((deptheads)=>{
        
-        if(!depthead){
+        if(!deptheads){
             res.status(204).send({
                 message: 'DepartmentHead Not Found'
             })
         }
         res.status(200).send({
             message: 'DepartmentHead Found',
-            depthead
+            deptheads
         })
     })
     .catch((error)=>{

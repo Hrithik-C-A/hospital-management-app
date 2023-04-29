@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Dashboard from './pages/Dashboard'
 import ProtectedRoutes from './ProtectedRoute'
 
+
 const App = () => {
   return (
     <Routes>

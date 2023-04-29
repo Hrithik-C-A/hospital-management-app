@@ -2,16 +2,16 @@ const Employee = require('../../models/Employee')
 
 module.exports =  (req,res)=>{
     Employee.find({})
-    .then((emp)=>{
+    .then((emps)=>{
        
-        if(!emp){
+        if(!emps){
             res.status(204).send({
                 message: 'Employees Not Found'
             })
         }
         res.status(200).send({
             message: 'Employees Found',
-            emp
+            emps
         })
     })
     .catch((error)=>{
