@@ -1,7 +1,11 @@
 const DeptHead = require('../../models/DeptHead')
+const path = require('path')
 
-module.exports = (req,res)=>{
- DeptHead.create(req.body)
+module.exports = async(req,res)=>{
+    let image = req.files.image
+    await image.mv(path.resolve('public/uploads/deptheads',image.name))
+    await DeptHead.create({...req.body,image: '/deptheads/'+ image.name})
+    
    .then((deptHead)=>{
         if(!deptHead){
             res.status(404).send({

@@ -1,6 +1,7 @@
 // DepartmentHeads.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import DeptHeadCreate from "../forms/DeptHeadCreate";
 
 const DepartmentHead = () => {
   const [departmentHeads, setDepartmentHeads] = useState([]);
@@ -16,6 +17,7 @@ const DepartmentHead = () => {
 
   return (
     <div>
+      <DeptHeadCreate/>
       {/* Render department heads data */}
       {departmentHeads.map((head) => (
         <div key={head._id}>{head.name}</div>

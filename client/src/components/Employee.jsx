@@ -1,6 +1,7 @@
 // Employees.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import EmpCreate from "../forms/EmpCreate";
 
 const Employee = () => {
   const [employees, setEmployees] = useState([]);
@@ -16,6 +17,7 @@ const Employee = () => {
 
   return (
     <div>
+      <EmpCreate/>
       {/* Render employees data */}
       {employees.map((employee) => (
         <div key={employee._id}>{employee.name}</div>
