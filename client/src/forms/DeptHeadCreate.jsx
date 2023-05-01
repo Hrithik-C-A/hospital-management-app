@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from 'react'
 import axios from 'axios'
 
-const DeptHeadCreate = () => {
+const DeptHeadCreate = ({isOpen,onClose}) => {
     const [name,setName] = useState('')
     const [year,setYear] = useState('')
     const [department,setDepartment] = useState('')
@@ -46,10 +46,21 @@ const DeptHeadCreate = () => {
        window.location.href = '/dashboard'   
     }
   return (
-    <div className='w-72'>
-        <form className='text-center shadow-lg p-4 rounded'onSubmit={handleSubmit}>
-            <div className='flex flex-col gap-2 items-start'>
-                Name :
+    <div
+      className={`fixed inset-0 flex items-center justify-center transition-opacity ${
+        isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      }`}
+    >
+      <div className="w-72 border m-auto p-4 bg-white rounded shadow-lg">
+        <button
+          className="absolute top-2 right-24 text-white bg-red-600 px-2 py-1 rounded"
+          onClick={onClose}
+        >
+          Close
+        </button>
+        <form className="text-center" onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-2 items-start">
+          Name :
                 <input className='border rounded-md px-2 py-1' type="text" placeholder='Department Head Name' value={name} onChange={(e)=>setName(e.target.value)} />
 
                 Age :
@@ -67,11 +78,12 @@ const DeptHeadCreate = () => {
                 </select>
 
                 About :
-                <textarea className='border rounded-md' cols="30" rows="10"  placeholder='About Department Head' value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
+                <textarea className='border rounded-md'  placeholder='About Department Head' value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
 
                 <button className='bg-blue-400 hover:bg-blue-500 px-2 py-1 rounded font-semibold text-white' type="submit" disabled={!department ||!name || !year || !description || !file}>Create</button>
-            </div>
+          </div>
         </form>
+      </div>
     </div>
   )
 }

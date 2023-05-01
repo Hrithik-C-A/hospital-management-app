@@ -31,6 +31,10 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(fileUpload())
+app.use('/departments', express.static('public/uploads/departments'));
+app.use('/deptheads', express.static('public/uploads/deptheads'));
+app.use('/employees', express.static('public/uploads/employees'));
+
 
 //for the admin
 app.get('/auth-dashboard',authMiddleware,getAllDataController)

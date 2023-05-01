@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-const DeptCreate = () => {
+const DeptCreate = ({isOpen,onClose}) => {
     const [name,setName] = useState('')
     const [year,setYear] = useState('')
     const [description,setDescription] = useState('')
@@ -30,11 +30,21 @@ const DeptCreate = () => {
           } catch (error) {
             console.error(error);
           }
-          window.location.href = '/dashboard'  
+          onClose() 
     }
   return (
-    <div className='w-72'>
-        <form className='text-center shadow-lg p-4 rounded'onSubmit={handleSubmit}>
+    <div  className={`fixed inset-0 flex items-center justify-center transition-opacity ${
+      isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+    }`}>
+      <div className="w-72 border m-auto p-4 bg-white rounded shadow-lg">
+      <button
+          className="absolute top-2 right-24 text-white bg-red-600 px-2 py-1 rounded"
+          onClick={onClose}
+        >
+          Close
+        </button>
+
+        <form className='text-center p-4 rounded'onSubmit={handleSubmit}>
             <div className='flex flex-col gap-2 items-start'>
 
                 Department Name :
@@ -47,11 +57,12 @@ const DeptCreate = () => {
                 <input type="file"  onChange={(e) => setFile(e.target.files[0])} />
 
                 About Department :
-                <textarea className='border rounded-md' cols="30" rows="10"  placeholder='About Department' value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
+                <textarea className='border rounded-md'  placeholder='About Department' value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
                 
                 <button className='bg-blue-400 hover:bg-blue-500 px-2 py-1 rounded font-semibold text-white' type="submit" disabled={!name || !year || !description || !file}>Create</button>
             </div>
         </form>
+      </div>
     </div>
   )
 }
